@@ -3,7 +3,6 @@ package metier;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import metier.objet.Ligne;
 import metier.objet.Objet;
 import metier.objet.Plateforme;
 
@@ -49,16 +48,11 @@ public class Terrain
 			boolean gravite = true ;
 			for( Objet o : this.objets )
 			{
-				for( Ligne ligne : o.getLignes())
+				if ( o.collision(hitboxSol.x, hitboxSol.y ) )
 				{
-					if ( pointDansLigne(hitboxSol, ligne) )
-					{
-						gravite = false ;
-						break ;
-					}
+					gravite = false ;
+					break ;
 				}
-				if (!gravite)
-					break;
 			}
 			
 			if ( gravite )
@@ -74,16 +68,11 @@ public class Terrain
 			boolean mur = false ;
 			for( Objet o : this.objets )
 			{
-				for( Ligne ligne : o.getLignes())
+				if ( o.collision(hitboxSol.x, hitboxSol.y ) )
 				{
-					if ( pointDansLigne(hitboxSol, ligne) )
-					{
-						mur = true ;
-						break ;
-					}
+					mur = true ;
+					break ;
 				}
-				if (mur)
-					break;
 			}
 			
 			if ( ! mur && this.joueur.getTempsSaut() < Joueur.SAUT_MAX )
@@ -114,7 +103,7 @@ public class Terrain
 	 * @param ligne
 	 * @return result
 	 */
-	private boolean pointDansLigne(Point c, Ligne ligne)
+	/*private boolean pointDansLigne(Point c, Ligne ligne)
 	{
 		boolean result = true ;
 		
@@ -138,5 +127,7 @@ public class Terrain
 		}
 		
 		return result ;
-	}
+	}*/
+	
+	
 }

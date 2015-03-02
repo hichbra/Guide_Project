@@ -7,10 +7,12 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import metier.Terrain;
+import metier.objet.Ligne;
 import metier.objet.Objet;
 import metier.objet.Plateforme;
 
@@ -44,14 +46,24 @@ public class Visu extends JPanel
 		dessineJoueur(g);
 		dessineObjet(g);
 		dessinDuGuide(g);
+		
+		
+		/*
+		try {
+			Thread.sleep(20);
+		} 
+		catch (InterruptedException e) {e.printStackTrace();}
+		*/
 	}
 
 	private void dessinDuGuide(Graphics g)
 	{
 		if(preview)
 		{
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.GRAY);
 			g.drawLine(debutX, debutY, finX, finY);
+			g.setColor(Color.RED);
+			g.drawLine(debutX, debutY, finX, debutY);
 			g.setColor(Color.BLACK);
 		}
 	}
@@ -62,10 +74,8 @@ public class Visu extends JPanel
 		{
 			if ( o instanceof Plateforme )
 			{
-				g.drawLine(	(int)(o.getLignes().get(0).getP1().getX()), 
-							(int)(o.getLignes().get(0).getP1().getY()),
-							(int)(o.getLignes().get(0).getP2().getX()),
-							(int)(o.getLignes().get(0).getP2().getY()));
+				ArrayList<Ligne> r = (ArrayList<Ligne>)o.getRepresentation();
+				g.drawLine(r.get(0).getP1().x, r.get(0).getP1().y, r.get(0).getP2().x, r.get(0).getP2().y);
 			}
 		}
 	}
@@ -76,6 +86,7 @@ public class Visu extends JPanel
 					(int)this.terrain.getJoueur().getPosition().getY(),
 					this.terrain.getJoueur().getLargeur(), 
 					this.terrain.getJoueur().getHauteur());
+		
 	}
 	
 	
@@ -143,9 +154,8 @@ public class Visu extends JPanel
 		@Override
 		public void mouseReleased(MouseEvent e) 
 		{
-			terrain.getObjets().add(new Plateforme(new Point(debutX, debutY), new Point(finX, finY))) ;
+			terrain.getObjets().add(new Plateforme(new Point(debutX, debutY), new Point(finX, debutY))) ;
 
-			
 			preview = false ;
 			init();
 		}

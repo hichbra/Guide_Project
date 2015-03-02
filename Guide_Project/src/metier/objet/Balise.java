@@ -1,6 +1,8 @@
 package metier.objet;
 
-public class Balise extends Objet 
+import java.util.ArrayList;
+
+public class Balise implements Objet 
 {
 
 	public Balise() 
@@ -9,9 +11,21 @@ public class Balise extends Objet
 	}
 
 	@Override
-	protected void initialisationObjet() 
+	public void initialisationObjet() 
 	{
 		
+	}
+
+	@Override
+	public boolean collision(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Ligne> getRepresentation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
